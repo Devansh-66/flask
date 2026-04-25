@@ -78,7 +78,10 @@ class SecureCookieSession(CallbackDict[str, t.Any], SessionMixin):
             self.modified = True
 
         super().__init__(initial, on_update)
-
+    
+    def __contains__(self,key:object) -> bool:
+        self.accessed = True
+        return super().__contains__(key)
 
 class NullSession(SecureCookieSession):
     """Class used to generate nicer error messages if sessions are not
